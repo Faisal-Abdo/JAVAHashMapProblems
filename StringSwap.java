@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 //"ax", "bx", "ay", "by", "ai", "aj", "bx", "by"
 public class StringSwap {
     public static void main(String[] args) {
@@ -19,31 +20,20 @@ public class StringSwap {
     }
 
     public static void findMatchingStrings(ArrayList<String> stringArray) {
-        Map<String, Character> trackerMap = new HashMap<>();
-        ArrayList<String> newArray = new ArrayList<>(stringArray);
-        Character currentChar;
+        Map<Character, Integer> trackerMap = new HashMap<>();
         String swap;
-        String currentString;
-        String previousString;
-        Integer currentCharSwap = 0;
         for (Integer i = 0; i < stringArray.size(); i++) {
-            if (!trackerMap.containsKey(stringArray.get(i))) {
-                trackerMap.put(stringArray.get(i), (stringArray.get(i)).charAt(0));
-            }
-            for (Integer j = i + 1; j < stringArray.size(); j++) {
-                currentString = stringArray.get(j);
-                currentChar = (stringArray.get(j)).charAt(0);
-                if (trackerMap.containsValue(currentChar)) {
-                    trackerMap.clear();
-                    swap = stringArray.get(i);
-                    previousString = currentString;
-                    currentString = swap;
-                    newArray.set(i,previousString);
-                    newArray.set(j,currentString);
-                    break;
-                }
+            Character firstChar = (stringArray.get(i)).charAt(0);
+            if (trackerMap.containsKey(firstChar)) {
+                Integer indexToSwap = trackerMap.get(firstChar);
+                swap = stringArray.get(i);
+                stringArray.set(i, stringArray.get(indexToSwap));
+                stringArray.set(indexToSwap, swap);
+                trackerMap.remove(firstChar);
+            } else {
+                trackerMap.put(firstChar, i);
             }
         }
-        System.out.println(newArray);
+        System.out.println(stringArray);
     }
 }
