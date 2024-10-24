@@ -32,27 +32,12 @@ public class DuplicatesArray {
                 }
             }
         }
-
         Integer sumOfDuplicates = 0;
         for (Map.Entry<Integer, List<Integer>> x : mapsOfDuplicateLocationsList.entrySet()) {
             System.out.println("Number: " + x.getKey() + " has "
-                    + x.getValue().size() + " Duplicates at positions "+x.getValue());
+                    + x.getValue().size() + " Duplicates at positions " + x.getValue());
             sumOfDuplicates += x.getKey();
         }
         System.out.println("Sum of duplicates: " + sumOfDuplicates);
- /*       Map<Integer, Set<Integer>> duplicateCount = new HashMap<>();
-        Set<Integer> positionsSet = new HashSet<>();
-        for (Integer i = 0; i < integerArray.size(); i++) {
-            Integer occurence = 0;
-            for (Integer j = i + 1; j < integerArray.size(); j++) {
-                if (integerArray.get(i) == integerArray.get(j)) {
-                    positionsSet.add(i);
-                    positionsSet.add(j);
-                    duplicateCount.put(integerArray.get(i), positionsSet);
-                    occurence++;
-                }
-            }
-        }
-        System.out.println(duplicateCount);*/
     }
 }
