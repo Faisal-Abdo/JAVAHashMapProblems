@@ -7,7 +7,7 @@ public class BtakesAValue {
         map.put("a", "aaa");
         map.put("b", "xyz");
         map.put("c", "ccc");
-        modifyAandB(map);
+         System.out.print(modifyAandB(map));
     }
 
     public static Map<String, String> modifyAandB(Map<String, String> randomMap) {
@@ -15,7 +15,6 @@ public class BtakesAValue {
             randomMap.put("b", randomMap.get("a"));
             randomMap.replace("a", "");
         }
-        System.out.println(randomMap);
         return randomMap;
     }
 }
