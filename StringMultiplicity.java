@@ -6,26 +6,23 @@ import java.util.HashMap;
 public class StringMultiplicity {
     public static void main(String[] args) {
         ArrayList<String> stringArray = new ArrayList<>(Arrays.asList("a", "b", "a", "c", "c"));
-        findMultiplicity(stringArray);
+        System.out.print(findMultiplicity(stringArray));
     }
 
-    public static Map<String, Boolean> findMultiplicity(ArrayList<String> stringArr) {
+    public static Map<String, Boolean> findMultiplicity(ArrayList<String> strings) {
         Map<String, Boolean> stringMap = new HashMap<>();
-        for (String a : stringArr) {
-            boolean flag = false;
+        for (String a : strings) {
+            boolean isMultiple = false;
             Integer count = 0;
-            for (String b : stringArr) {
+            for (String b : strings) {
                 if (a.equals(b)) {
                     count++;
                 }
             }
             if (count > 1) {
-                flag = true;
+                isMultiple = true;
             }
-            stringMap.put(a, flag);
-        }
-        for (Map.Entry<String, Boolean> entry : stringMap.entrySet()) {
-            System.out.print(entry.getKey() + ": " + entry.getValue() + " ");
+            stringMap.put(a, isMultiple);
         }
         return stringMap;
     }
