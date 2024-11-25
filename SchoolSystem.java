@@ -1,6 +1,8 @@
+package ScientificCalculatorOOP.Calculators;
+
 import java.util.*;
 
-public class SchoolSystem {
+public class test {
 
     static Scanner scanner = new Scanner(System.in);
     static List<HashMap<String, Object>> listOfSchools = new ArrayList<>();
@@ -28,8 +30,6 @@ public class SchoolSystem {
     }
 
     public static List<HashMap<String, Object>> getSchools() {
-
-        //Boolean schoolFlag = true;
         while (true) {
             scanner.nextLine();
             HashMap<String, Object> school = new HashMap<>();
@@ -53,9 +53,9 @@ public class SchoolSystem {
     public static List<HashMap<String, Object>> getStudents() {
         List<HashMap<String, Object>> studentsForThisSchool = new ArrayList<>();
         while (true) {
-            System.out.println("Enter student name (type enough to stop): ");
+            System.out.println("Enter student name (type exit to stop): ");
             String studentName = scanner.nextLine();
-            if (studentName.equals("enough")) {
+            if (studentName.equals("exit")) {
                 break;
             }
             System.out.println("Enter student id: ");
@@ -80,9 +80,9 @@ public class SchoolSystem {
     public static List<HashMap<String, Object>> getSubject() {
         List<HashMap<String, Object>> subjectsForThisStudent = new ArrayList<>();
         while (true) {
-            System.out.println("Enter subject name (type enough to stop): ");
+            System.out.println("Enter subject name (type exit to stop): ");
             String subjectName = scanner.nextLine();
-            if (subjectName.equals("enough")) {
+            if (subjectName.equals("exit")) {
                 break;
             }
             System.out.println("Enter teacher name: ");
@@ -105,9 +105,9 @@ public class SchoolSystem {
     public static List<HashMap<String, Object>> getMarks() {
         List<HashMap<String, Object>> marksForThisSubject = new ArrayList<>();
         while (true) {
-            System.out.print("Enter the test name (type stop to finish): ");
+            System.out.print("Enter the test name (type exit to finish): ");
             String testName = scanner.nextLine();
-            if (testName.equals("stop")) {
+            if (testName.equals("exit")) {
                 break;
             }
             System.out.print("Enter the marks: ");
@@ -125,27 +125,32 @@ public class SchoolSystem {
         System.out.print("Enter school name: ");
         String schoolName = scanner.nextLine();
         scanner.nextLine();
-        System.out.print("Enter student ID: ");
-        String studentID = scanner.nextLine();
-        System.out.print("Enter subject name: ");
-        String subjectName = scanner.nextLine();
         for (HashMap<String, Object> school : listOfSchools) {
             if (school.containsValue(schoolName)) {
                 List<HashMap<String, Object>> students = (List<HashMap<String, Object>>) school.get("Students");   // manual/narrowing casting
                 for (HashMap<String, Object> student : students) {
-                    System.out.println("Student " + studentID + " grade is: " + student.get("grade"));
+                    System.out.print("Enter student ID: ");
+                    String studentID = scanner.nextLine();
+                    //System.out.println("Student " + studentID + " grade is: " + student.get("grade"));
                     if (student.containsValue(studentID)) {
                         List<HashMap<String, Object>> subjects = (List<HashMap<String, Object>>) student.get("Subjects");
                         for (HashMap<String, Object> subject : subjects) {
+                            System.out.print("Enter subject name: ");
+                            String subjectName = scanner.nextLine();
                             if (subject.containsValue(subjectName)) {
                                 List<HashMap<String, Object>> marks = (List<HashMap<String, Object>>) subject.get("Marks");
                                 System.out.println("Student " + studentID + " marks for this subject as follows: " + marks);
                                 break;
+                            } else {
+                                System.out.println("Subject does not exist");
                             }
-
                         }
+                    } else {
+                        System.out.println("Student does not exist");
                     }
                 }
+            } else {
+                System.out.println("School does not exist");
             }
         }
     }
@@ -177,7 +182,7 @@ public class SchoolSystem {
                             totalMarksForAllSubjects += totalMarksForThisSubject;
                             totalCount += count;
                         }
-                        if(totalCount>0){
+                        if (totalCount > 0) {
                             System.out.println("Student's average: " + totalMarksForAllSubjects / totalCount);
                         } else {
                             System.out.println("No marks found");
