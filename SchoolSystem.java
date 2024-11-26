@@ -33,7 +33,7 @@ public class test {
     public static List<HashMap<String, Object>> getSchools() {
         while (true) {
             scanner.nextLine();
-            HashMap<String, Object> school = new HashMap<>();
+            HashMap<String, Object> schoolHashmap = new HashMap<>();
             System.out.println("Enter school name (type exit to quit): ");
             String nameOfSchool = scanner.nextLine();
             if (nameOfSchool.equals("exit")) {
@@ -41,12 +41,12 @@ public class test {
             }
             System.out.println("Enter address: ");
             String address = scanner.nextLine();
-            school.put("school name", nameOfSchool);
-            school.put("address", address);
+            schoolHashmap.put("school name", nameOfSchool);
+            schoolHashmap.put("address", address);
 
 
-            school.put("Students", getStudents());
-            listOfSchools.add(school);
+            schoolHashmap.put("Students", getStudents());
+            listOfSchools.add(schoolHashmap);
         }
         return listOfSchools;
     }
@@ -123,37 +123,36 @@ public class test {
     }
 
     public static void retrieveMarks(List<HashMap<String, Object>> listOfSchools) {
-        System.out.print("Enter school name: ");
-        String schoolName = scanner.nextLine();
-        scanner.nextLine();
-        for (HashMap<String, Object> school : listOfSchools) {
-            if (school.containsValue(schoolName)) {
-                List<HashMap<String, Object>> students = (List<HashMap<String, Object>>) school.get("Students");   // manual/narrowing casting
-                for (HashMap<String, Object> student : students) {
-                    System.out.print("Enter student ID: ");
-                    String studentID = scanner.nextLine();
-                    //System.out.println("Student " + studentID + " grade is: " + student.get("grade"));
-                    if (student.containsValue(studentID)) {
+        System.out.println("Enter existing School name: ");
+        String schoolName = scanner.next();
+        for (HashMap<String, Object> schoolMap : listOfSchools) {
+            if (schoolMap.containsValue(schoolName)) {
+                List<HashMap<String, Object>> studentsForThisSchoolList = (List<HashMap<String, Object>>) schoolMap.get("Students");
+                System.out.println("Enter a student ID: ");
+                String studentId = scanner.next();
+                for (HashMap<String, Object> student : studentsForThisSchoolList) {
+                    if (student.containsValue(studentId)) {
                         List<HashMap<String, Object>> subjects = (List<HashMap<String, Object>>) student.get("Subjects");
+                        System.out.println("Enter subject name:");
+                        String subjectName = scanner.next();
                         for (HashMap<String, Object> subject : subjects) {
-                            System.out.print("Enter subject name: ");
-                            String subjectName = scanner.nextLine();
                             if (subject.containsValue(subjectName)) {
                                 List<HashMap<String, Object>> marks = (List<HashMap<String, Object>>) subject.get("Marks");
-                                System.out.println("Student " + studentID + " marks for this subject as follows: " + marks);
-                                break;
+                                System.out.println("Marks of " + student + "for " + subjectName + ": " + marks);
+                                System.out.println("Grade: " + student.get("grade"));
                             } else {
-                                System.out.println("Subject does not exist");
+                                System.out.println("Subject not found");
                             }
                         }
                     } else {
-                        System.out.println("Student does not exist");
+                        System.out.println("Student not found");
                     }
                 }
             } else {
-                System.out.println("School does not exist");
+                System.out.println("School not found");
             }
         }
+
     }
 
     public static void calculateAverage(List<HashMap<String, Object>> schoolList) {
