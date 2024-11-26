@@ -17,7 +17,8 @@ public class test {
             System.out.print("Choose an option: ");
             Integer option = scanner.nextInt();
             if (option == 1) {
-                System.out.println(getSchools());
+                listOfSchools = getSchools();
+                System.out.println(listOfSchools);
             } else if (option == 2) {
                 retrieveMarks(listOfSchools);
             } else if (option == 3) {
